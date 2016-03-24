@@ -1,3 +1,4 @@
+```javascript
 if (!document.querySelectorAll) {
     var s = document.createStyleSheet();
 
@@ -32,3 +33,4 @@ if (!document.querySelectorAll) {
         return result;
     };
 }
+```
