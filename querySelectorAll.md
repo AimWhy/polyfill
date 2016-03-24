@@ -1,7 +1,7 @@
 ```javascript
 if (!document.querySelectorAll) {
     var s = document.createStyleSheet();
-
+    
     document.querySelectorAll = function (selector) {
         var result = [],
             hasAdded = [],
