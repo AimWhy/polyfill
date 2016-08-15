@@ -41,61 +41,61 @@ var stringify = (function () {
         }) + '"' : '"' + string + '"';
     }
 
-    return function (value) {
-        function str(key, holder) {
-            var value = holder[key],
-                partial,
-                length,
-                i;
+    function str(key, holder) {
+        var value = holder[key],
+            partial,
+            length,
+            i;
 
-            if (value && typeof value === 'object' && typeof value.toJSON === 'function') {
-                value = value.toJSON(key);
-            }
-
-            switch (typeof value) {
-                case 'string':
-                    return quote(value);
-                case 'number':
-                    return isFinite(value) ? String(value) : 'null';
-                case 'boolean':
-                case 'null':
-                    return String(value);
-                case 'object':
-                    if (!value) {
-                        return 'null';
-                    }
-
-                    partial = [];
-                    if (Object.prototype.toString.apply(value) === '[object Array]') {
-                        length = value.length;
-                        for (i = 0; i < length; i += 1) {
-                            partial[i] = str(i, value) || 'null';
-                        }
-                        return partial.length === 0 ? '[]' : '[' + partial.join(',') + ']';
-                    }
-
-                    var keys = [];
-                    for (var k in value) {
-                        if (Object.prototype.hasOwnProperty.call(value, k)) {
-                            keys.push(k);
-                        }
-                    }
-
-                    keys.sort();
-                    length = keys.length;
-
-                    for (i = 0; i < length; i++) {
-                        var v = str(keys[i], value);
-                        if (v) {
-                            partial.push(quote(keys[i]) + ':' + v);
-                        }
-                    }
-                    return partial.length === 0 ? '{}' : '{' + partial.join(',') + '}';
-                default:
-                    return 'null';
-            }
+        if (value && typeof value === 'object' && typeof value.toJSON === 'function') {
+            value = value.toJSON(key);
         }
 
+        switch (typeof value) {
+            case 'string':
+                return quote(value);
+            case 'number':
+                return isFinite(value) ? String(value) : 'null';
+            case 'boolean':
+            case 'null':
+                return String(value);
+            case 'object':
+                if (!value) {
+                    return 'null';
+                }
+
+                partial = [];
+                if (Object.prototype.toString.apply(value) === '[object Array]') {
+                    length = value.length;
+                    for (i = 0; i < length; i += 1) {
+                        partial[i] = str(i, value) || 'null';
+                    }
+                    return partial.length === 0 ? '[]' : '[' + partial.join(',') + ']';
+                }
+
+                var keys = [];
+                for (var k in value) {
+                    if (Object.prototype.hasOwnProperty.call(value, k)) {
+                        keys.push(k);
+                    }
+                }
+
+                keys.sort();
+                length = keys.length;
+
+                for (i = 0; i < length; i++) {
+                    var v = str(keys[i], value);
+                    if (v) {
+                        partial.push(quote(keys[i]) + ':' + v);
+                    }
+                }
+                return partial.length === 0 ? '{}' : '{' + partial.join(',') + '}';
+            default:
+                return 'null';
+        }
+    }
+
+    return function (value) {
         return str('', {
             '': value
         });
