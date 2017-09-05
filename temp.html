@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .wrap {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .c {
+            display: flex;
+            justify-content: center;
+        }
+
+        .r,
+        .m,
+        .l,
+        .shadow {
+            transition: all 1s ease-in;
+        }
+
+        .r,
+        .l {
+            font-size: 12px;
+            opacity: 0;
+        }
+
+        .m {
+            z-index: 1;
+            font-size: 20px;
+        }
+
+        .team .r {
+            opacity: 1;
+            transform: translate(-4.2em, 1.2em)
+        }
+
+        .team .l {
+            opacity: 1;
+            transform: translate(4.2em, 1.2em);
+        }
+
+        .team .m {
+            transform: scale(.85);
+        }
+
+        .t {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .t::before {
+            content: '';
+            background: linear-gradient(yellow, #333);
+            width: 4.5em;
+            height: 4.5em;
+            display: block;
+            border-radius: 100%;
+            z-index: 1;
+        }
+
+        .t::after {
+            content: '';
+            background: linear-gradient(red, #333);
+            width: 8.5em;
+            height: 5em;
+            display: block;
+            border-radius: 20% 20% 0 0;
+            transform: translateY(-.75em);
+        }
+
+        .shadow {
+            width: 90px;
+            height: 10px;
+            border-radius: 100%;
+            background: linear-gradient(#ccc, #999);
+            transform: scale(1.2);
+        }
+
+        .team .shadow{
+            transform: scale(1);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="id" class="wrap">
+        <div class="c">
+            <div class="l t small"></div>
+            <div class="m t"></div>
+            <div class="r t small"></div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+    <button onclick="swi()">点击</button>
+</body>
+<script>
+    function swi() {
+        var x = document.getElementById('id')
+        if (x.classList.contains('team')) {
+            x.classList.remove('team')
+        } else {
+            x.classList.add('team')
+        }
+    }
+
+</script>
+
+</html>
