@@ -6,3 +6,9 @@ var retryPromise = function (promise, args, context, maxTries = 1) {
     return (maxTries === -1) ? Promise.reject(err) : retryPromise(promise, args, maxTries - 1)
   })
 }
+
+function delay (time, param, isError = false) {
+  return new Promise(function (resolve, reject) {
+    setTimeout(isError ? reject : resolve, time, param)
+  })
+}
